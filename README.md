@@ -382,3 +382,103 @@ docker run -p 8080:8080 \
 ## Lizenz
 
 Dieses Projekt hat keine spezifische Lizenz und wird zu Bildungszwecken bereitgestellt.
+
+
+
+# Order Service
+
+Eine Spring Boot-basierte Webanwendung zur Verwaltung von Warenkörben und Bestellungen. Der Service bildet die Benutzeroberfläche des E-Commerce-Systems und integriert sich mit dem **Catalog-Service** zur Produktverwaltung.
+
+---
+
+## Überblick
+
+Der Order-Service ist eine Java-basierte Webanwendung mit Thymeleaf-Frontend, die Warenkorbfunktionalitäten für einen Online-Buchhandel bereitstellt. Als Teil einer Microservice-Architektur arbeitet er eng mit dem **Catalog-Service** zusammen und nutzt dessen REST-API für die Produktsuche und -anzeige.
+
+### Verwandte Projekte
+
+- **Catalog-Service**: Stellt die REST-API für Bücher und Autoren bereit
+- **Repository**: https://github.com/ksriganthan/catalog
+
+---
+
+## Technologie-Stack
+
+| Kategorie | Technologie | Version |
+|-----------|-------------|---------|
+| Runtime | Java | 21 |
+| Framework | Spring Boot | 3.5.7 |
+| Template Engine | Thymeleaf | - |
+| REST Client | Spring RestClient | - |
+| Resilience | Resilience4j | 2.2.0 |
+| Build-Tool | Maven | 3.9+ |
+| Containerisierung | Docker | - |
+| Testing | JUnit 5 | - |
+| E2E Testing | Playwright | 1.46.0 |
+| Code Coverage | JaCoCo | 0.8.14 |
+| Monitoring | Spring Boot Actuator | - |
+
+---
+
+## Funktionsumfang
+
+### Kernfunktionen
+
+- **Web-UI** für Buchsuche und Warenkorb
+- **Warenkorbverwaltung** mit Session-basierter Persistierung
+- **Integration mit Catalog-Service** über REST-API
+- **Resilience-Pattern**:
+  - Automatische Retry-Mechanismen bei Catalog-Ausfällen
+  - Fallback-Strategien bei Nichtverfügbarkeit
+  - Circuit-Breaker-Pattern
+- **Erweiterte Suchfunktion**:
+  - Delegiert an Catalog-Service
+  - Echtzeitsuche über Thymeleaf-UI
+- **Session-Management**:
+  - Cookie-basiertes Session-Tracking
+  - Benutzerspezifische Warenkörbe
+- **Docker-Support** für einfaches Deployment
+- **Umfassende Test-Suite**:
+  - Unit-Tests
+  - End-to-End-Tests mit Playwright
+
+---
+
+## Voraussetzungen
+
+Stellen Sie sicher, dass folgende Software installiert ist:
+
+- **Java Development Kit (JDK)**: Version 21 oder höher
+- **Apache Maven**: Version 3.9 oder höher
+- **Catalog-Service**: Muss laufen (siehe Konfiguration)
+- **Docker** (optional): Für containerisierte Ausführung
+
+---
+
+## Installation und Start
+
+### Lokale Entwicklung mit Maven
+
+```bash
+# Repository klonen
+git clone https://github.com/mladen98/order.git
+cd order
+
+# Sicherstellen, dass der Catalog-Service läuft
+# (siehe Catalog-Service Dokumentation)
+
+# Anwendung bauen
+./mvnw clean package
+
+# Anwendung starten
+./mvnw spring-boot:run
+
+# Docker Image erstellen
+docker build -t order:latest .
+
+# Container starten
+docker run -p 8081:8081 \
+  -e CATALOG_BASE_URL=http://catalog:8080 \
+  order:latest
+
+
