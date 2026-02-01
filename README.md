@@ -1,5 +1,5 @@
-# Agile Application Lifecycle Management  
-## Microservice-basiertes E-Commerce-System (Catalog & Order)
+# Microservice-basiertes E-Commerce-System (Catalog & Order)
+## Modul: Agile Application Lifecycle Management 
 
 Dieses Projekt implementiert ein **modulares Microservice-System** bestehend aus zwei klar getrennten Services:
 
@@ -18,10 +18,7 @@ Das System wurde im Rahmen des Moduls **Agile Application Lifecycle Management**
 - **Datenhaltung**: PostgreSQL (Catalog-Service)
 - **Frontend**: Thymeleaf (Order-Service)
 
-Order Service ──REST──▶ Catalog Service ──▶ PostgreSQL  
-▲  
-│  
-Web UI
+Order Service ──▶ REST──▶ Catalog Service ──▶ PostgreSQL (H2) ──▶ Web UI
 
 ---
 
@@ -30,7 +27,7 @@ Web UI
 ### Catalog-Service
 
 **Verantwortung**  
-Zentraler Produktkatalog für Bücher und Autoren. Stellt eine REST-API bereit, die vom Order-Service konsumiert wird.
+Zentraler Produktkatalog für Bücher. Stellt eine REST-API bereit, die vom Order-Service konsumiert wird.
 
 **Kernfunktionen**
 - CRUD für Bücher und Autoren
@@ -43,11 +40,12 @@ Zentraler Produktkatalog für Bücher und Autoren. Stellt eine REST-API bereit, 
 
 **Technologie**
 - Java 21
-- Spring Boot 3.5.x
+- Spring Boot 3.5.6
 - Spring Data JPA
 - PostgreSQL
 - Testcontainers
 - Gatling (Lasttests)
+- PlayWright (E2E)
 - JaCoCo (Coverage)
 
 ---
@@ -67,7 +65,7 @@ Benutzeroberfläche und Warenkorblogik. Integriert sich über REST mit dem Catal
 
 **Technologie**
 - Java 21
-- Spring Boot 3.5.x
+- Spring Boot 3.5.6
 - Thymeleaf
 - Spring RestClient
 - Resilience4j
@@ -79,14 +77,14 @@ Benutzeroberfläche und Warenkorblogik. Integriert sich über REST mit dem Catal
 ## Technologie-Stack (konsolidiert)
 
 - Sprache: Java 21
-- Framework: Spring Boot 3.5.x
+- Framework: Spring Boot 3.5.6
 - Architektur: Microservices (Polyrepo)
-- Datenbank: PostgreSQL
+- Datenbank: PostgreSQL (H2)
 - Frontend: Thymeleaf
 - Build: Maven
 - Container: Docker, Docker Compose
 - Testing: JUnit 5, Mockito
-- Integration Tests: Testcontainers
+- Integration Tests: Testcontainers (PostgreSQL)
 - E2E Tests: Playwright
 - Performance: Gatling
 - Monitoring: Spring Boot Actuator
@@ -183,9 +181,9 @@ Zugriff:
 
 ## Mitwirkende
 
-- Kapischan Sriganthan – Architektur & Entwicklung  
-- Mladen Radovanovic – Entwicklung & Testing  
-- Micaela Wieland – Entwicklung & Dokumentation  
+- Kapischan Sriganthan
+- Mladen Radovanovic
+- Micaela Wieland
 
 ---
 
@@ -193,6 +191,6 @@ Zugriff:
 
 - Catalog-Service: https://github.com/ksriganthan/catalog  
 - Order-Service: https://github.com/mladen98/order  
-- Docker Hub:
+- Docker Hub: https://hub.docker.com/repositories/ksrigganthan
   - ksrigganthan/catalog
   - ksrigganthan/order
