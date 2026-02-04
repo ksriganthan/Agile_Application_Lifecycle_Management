@@ -1,5 +1,5 @@
 # Microservice-basiertes E-Commerce-System (Catalog & Order)
-## Modul: Agile Application Lifecycle Management 
+## Modul: Agile Application Lifecycle Management (Deutsch)
 
 Dieses Projekt implementiert ein **modulares Microservice-System** bestehend aus zwei klar getrennten Services:
 
@@ -198,7 +198,7 @@ Zugriff:
 
 
 # Microservice-based E-Commerce System (Catalog & Order)
-## Module: Agile Application Lifecycle Management 
+## Module: Agile Application Lifecycle Management (English)
 
 This project implements a **modular microservice system** consisting of two clearly separated services:
 
