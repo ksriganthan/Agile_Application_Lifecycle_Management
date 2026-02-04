@@ -194,3 +194,202 @@ Zugriff:
 - Docker Hub: https://hub.docker.com/repositories/ksrigganthan
   - ksrigganthan/catalog
   - ksrigganthan/order
+  - 
+
+
+# Microservice-based E-Commerce System (Catalog & Order)
+## Module: Agile Application Lifecycle Management 
+
+This project implements a **modular microservice system** consisting of two clearly separated services:
+
+- **Catalog-Service** – Product and search management (REST API)
+- **Order-Service** – Web frontend, shopping cart and order logic
+
+The system was developed as part of the **Agile Application Lifecycle Management** module and follows proven principles of modern software architecture: clear responsibilities, loose coupling, testability, and containerization.
+
+---
+
+## Overall Architecture
+
+- **Architecture Style**: Microservices (Polyrepo)
+- **Communication**: REST (HTTP, JSON)
+- **Deployment**: Docker & Docker Compose
+- **Data Storage**: PostgreSQL (Catalog-Service)
+- **Frontend**: Thymeleaf (Order-Service)
+
+Order Service ──▶ REST──▶ Catalog Service ──▶ PostgreSQL (H2) ──▶ Web UI
+
+---
+
+## Services Overview
+
+### Catalog-Service
+
+**Responsibility**  
+Central product catalog for books. Provides a REST API consumed by the Order-Service.
+
+**Core Functions**
+- CRUD for books and authors
+- Many-to-Many relationship (Book ↔ Author)
+- Advanced full-text search (ISBN, title, description, author)
+- Case-insensitive search with AND logic
+- Automatic initialization of sample data
+- Docker-ready
+- Comprehensive test coverage
+
+**Technology**
+- Java 21
+- Spring Boot 3.5.6
+- Spring Data JPA
+- PostgreSQL
+- Testcontainers
+- Gatling (Load tests)
+- Playwright (E2E)
+- JaCoCo (Coverage)
+
+---
+
+### Order-Service
+
+**Responsibility**  
+User interface and shopping cart logic. Integrates with the Catalog-Service via REST.
+
+**Core Functions**
+- Web UI for product search
+- Session-based shopping cart
+- Resilient communication with Catalog-Service
+- Retry & fallback mechanisms
+- End-to-end tests with Playwright
+- Docker-ready
+
+**Technology**
+- Java 21
+- Spring Boot 3.5.6
+- Thymeleaf
+- Spring RestClient
+- Resilience4j
+- Playwright (E2E)
+- JaCoCo
+
+---
+
+## Technology Stack (consolidated)
+
+- Language: Java 21
+- Framework: Spring Boot 3.5.6
+- Architecture: Microservices (Polyrepo)
+- Database: PostgreSQL (H2)
+- Frontend: Thymeleaf
+- Build: Maven
+- Container: Docker, Docker Compose
+- Testing: JUnit 5, Mockito
+- Integration Tests: Testcontainers (PostgreSQL)
+- E2E Tests: Playwright
+- Performance: Gatling
+- Monitoring: Spring Boot Actuator
+
+---
+
+## Repository Structure
+
+Catalog-Service:
+catalog/
+- controller – REST Controller
+- service – Business Logic
+- repository – JPA Repositories
+- data – Entities (Book, Author)
+- config – Initialization & Configuration
+- Dockerfile
+
+Order-Service:
+order/
+- controller – Web Controller
+- service – Shopping Cart & Integration
+- model – Cart, Book, Author
+- config – REST Client & Session
+- templates – Thymeleaf UI
+- Dockerfile
+
+---
+
+## Service Communication
+
+Example: Book Search  
+GET /books/search?keyword=Fitzek
+
+- Called by Order-Service
+- Delegated to Catalog-Service
+- JSON response is displayed in the UI
+- Multiple keywords are logically AND-linked
+
+---
+
+## Resilience & Error Handling
+
+The Order-Service is fault-tolerant towards Catalog-Service failures:
+
+- Retry (3 attempts, 500 ms)
+- Fallback when unreachable
+- UI remains functional
+- Shopping cart is preserved
+
+---
+
+## Testing Strategy
+
+- Unit Tests: isolated logic tests
+- Integration Tests: Service + DB (Testcontainers)
+- End-to-End Tests: Browser-based tests (Playwright)
+- Performance Tests: Load & stability tests (Gatling)
+
+Coverage reports are generated with JaCoCo.
+
+---
+
+## Monitoring & Observability
+
+Both services use Spring Boot Actuator:
+
+- /actuator/health
+- /actuator/metrics
+- /actuator/info
+
+Additionally:
+- Retry metrics (Resilience4j)
+- Separate service health checks
+
+---
+
+## Deployment
+
+Local Development:
+./mvnw spring-boot:run
+
+Docker (Single Service):
+docker build -t catalog .
+docker run -p 8080:8080 catalog
+
+Complete System:
+docker-compose up -d
+
+Access:
+- Catalog-Service: http://localhost:8080
+- Order-Service: http://localhost:8081
+
+---
+
+## Contributors
+
+- Kapischan Sriganthan
+- Mladen Radovanovic
+- Micaela Wieland
+
+---
+
+## Links
+
+- Catalog-Service: https://github.com/ksriganthan/catalog  
+- Order-Service: https://github.com/mladen98/order  
+- Docker Hub: https://hub.docker.com/repositories/ksrigganthan
+  - ksrigganthan/catalog
+  - ksrigganthan/order
