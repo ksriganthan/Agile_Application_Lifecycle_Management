@@ -30,7 +30,8 @@ Order Service ──▶ REST──▶ Catalog Service ──▶ PostgreSQL (H2) 
 Zentraler Produktkatalog für Bücher. Stellt eine REST-API bereit, die vom Order-Service konsumiert wird.
 
 **Kernfunktionen**
-- CRUD für Bücher und Autoren
+- Datenhaltung für Bücher und Autoren (JPA-Repositories)
+- Lesende REST-API: Buchsuche über `GET /books/search`
 - Many-to-Many-Beziehung (Book ↔ Author)
 - Erweiterte Volltextsuche (ISBN, Titel, Beschreibung, Autor)
 - Case-insensitive Suche mit UND-Verknüpfung
@@ -229,7 +230,8 @@ Order Service ──▶ REST──▶ Catalog Service ──▶ PostgreSQL (H2) 
 Central product catalog for books. Provides a REST API consumed by the Order-Service.
 
 **Core Functions**
-- CRUD for books and authors
+- Persistence for books and authors (JPA repositories)
+- Read-only REST API: book search via `GET /books/search`
 - Many-to-Many relationship (Book ↔ Author)
 - Advanced full-text search (ISBN, title, description, author)
 - Case-insensitive search with AND logic
